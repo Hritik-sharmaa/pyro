@@ -5,7 +5,6 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useAuthStore } from "../store/authStore";
 import "../styles/Common.css";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const { login, isLoading, error, isAuthenticated } = useAuthStore();
@@ -19,7 +18,7 @@ const Login = () => {
     e.preventDefault();
 
     const { email, password } = data;
-    console.log({email, password});
+    console.log({ email, password });
 
     if (!email || !password) {
       toast.error("Please fill out all fields.");
@@ -32,8 +31,7 @@ const Login = () => {
       if (data.error) {
         toast.error(data.error);
       } else {
-        setData({email: "",
-          password: "",});
+        setData({ email: "", password: "" });
         navigate("/");
       }
     } catch (err) {
@@ -53,7 +51,7 @@ const Login = () => {
             type="email"
             placeholder="Enter your email"
             value={data.email}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-pink-500 text-gray-900 placeholder:text-sm"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black text-gray-900 placeholder:text-sm"
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
         </div>
@@ -63,12 +61,12 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             value={data.password}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-pink-500 text-gray-900 placeholder:text-sm"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black text-gray-900 placeholder:text-sm"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
           <button
             type="button"
-            className="absolute top-[60.5%] right-12 transform -translate-y-1/2 text-gray-500"
+            className="absolute top-[55%] right-12 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
           </button>
@@ -81,7 +79,7 @@ const Login = () => {
         <input
           type="submit"
           value="Login"
-          className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-200 cursor-pointer"
+          className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-zinc-900 transition duration-200 cursor-pointer"
         />
         <p className="text-center mt-4 text-gray-500">
           Don't have an account?{" "}

@@ -21,16 +21,36 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = data;
+
+    //validations
+    if (!firstName || !lastName || !email || !password) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
     await register(firstName, lastName, email, password);
     navigate("/verify-email"); //redirect to verify email page
 
-      //adding toast to showcase error getting error from authController file
-      if (data.error) {
-        toast.error(data.error);
-      } else {
-        setData({ firstName: "", lastName: "", email: "", password: "" });
-        toast.success("Registration successfull, Please Login!");
-      }
+    //adding toast to showcase error getting error from authController file
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      setData({ firstName: "", lastName: "", email: "", password: "" });
+      toast.success("Registration successfull, Please Login!");
+    }
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-950 bg">
@@ -91,8 +111,7 @@ const Register = () => {
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 cursor-pointer"
-          disabled={isLoading}
-        >
+          disabled={isLoading}>
           {isLoading ? "Loading..." : "Create an account"}
         </button>
         <p className="text-center mt-5 text-gray-500">

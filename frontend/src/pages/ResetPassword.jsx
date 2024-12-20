@@ -27,7 +27,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white">
+    <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white bg">
       <form
         onSubmit={handleSubmit}
         className="bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 w-full max-w-sm text-gray-900">
@@ -40,7 +40,7 @@ const ResetPassword = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-pink-500 mb-2"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black mb-2"
             />
             <button
               type="button"
@@ -57,7 +57,7 @@ const ResetPassword = () => {
               placeholder="Confirm your password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-pink-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black"
             />
             <button
               type="button"
@@ -71,7 +71,7 @@ const ResetPassword = () => {
 
         <button
           type="submit"
-          className="w-full bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-200">
+          className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-zinc-900 transition duration-200">
           Reset Password
         </button>
       </form>

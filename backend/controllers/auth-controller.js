@@ -15,21 +15,27 @@ const register = async (req, res) => {
   try {
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
+        success: false,
         message: "All fields are required",
         error: "All fields are required",
       });
     }
 
-    // check if name is entered or not
-    if (!firstName || !lastName) {
-      return res.json({
-        error: "First name and last name is required",
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email format",
+        error: "Invalid email format",
       });
     }
+
     // check if password is good not not
-    if (!password || password.length < 8) {
-      return res.json({
-        error: "password should be greater than 8 character",
+    if (password.length < 8) {
+      return res.status(400).json({
+          success: false,
+        message: "Password must be at least 8 characters long",
+         error: "Password too short"
       });
     }
     //check if email exists or not
@@ -37,11 +43,12 @@ const register = async (req, res) => {
     if (userAlreadyExists) {
       return res.status(400).json({
         message: "User already exists",
-        error: "email already exists",
+        error: "Email already exists",
       });
     }
-
+//hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const verificationToken = generateVerificationToken();
     const user = new User({
       firstName,

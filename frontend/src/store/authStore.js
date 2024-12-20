@@ -61,6 +61,12 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
+      if (response.ok) {
+        // Save token in localStorage or cookies
+        localStorage.setItem("token", data.token);
+      } else {
+        throw new Error(data.message || "Login failed");
+      }
       set({ isLoading: false, isAuthenticated: true, user: data.user });
     } catch (err) {
       set({ isLoading: false, error: err.message });
@@ -80,9 +86,15 @@ export const useAuthStore = create((set) => ({
         credentials: "include",
         body: JSON.stringify({ email }),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to send reset link.");
+      }
+
       const data = await response.json();
       console.log(data);
-      set({ isLoading: false });
+      set({ isLoading: false, success: true, message: data.message });
       return data;
     } catch (error) {
       set({ isLoading: false, error: error.message });
@@ -94,21 +106,51 @@ export const useAuthStore = create((set) => ({
   resetPassword: async (token, password) => {
     set({ isLoading: true, error: null });
     try {
-        const response = await fetch(`${API_URL}/reset-password/${token}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ password }),
-        })
-        const data = await response.json();
-        set({ isLoading: false, message: data.message });
+      const response = await fetch(`${API_URL}/reset-password/${token}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ password }),
+      });
+      const data = await response.json();
+      set({ isLoading: false, message: data.message });
     } catch (error) {
       set({ isLoading: false, error: error.message });
       console.log(error);
       throw error;
     }
   },
+  
+  logout: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Logout failed");
+      }
+      // Clear local storage
+      localStorage.removeItem("token");
 
+      // Reset the auth state
+      set({
+        isLoading: false,
+        isAuthenticated: false,
+        user: null,
+        error: null,
+      });
+    } catch (error) {
+      set({ isLoading: false, error: error.message });
+      console.log(error);
+      throw error;
+    }
+  },
 }));

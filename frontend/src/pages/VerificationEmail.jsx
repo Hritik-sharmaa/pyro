@@ -5,22 +5,26 @@ import InputOTPSlot from "../components/InputOTPSlot";
 import { Button } from "../components/Button";
 import { useAuthStore } from "../store/authStore"; 
 import { toast } from "react-hot-toast"; 
+import "../styles/Common.css"
+import { useNavigate } from "react-router-dom";
 
 const VerificationEmail = () => {
     const [value, setValue] = useState(Array(6).fill(""));
     const inputsRef = useRef([]);
   const { verifyEmail, isLoading, error, user } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const otpCode = value.join("");
     await verifyEmail(otpCode);
     if (!error && !isLoading) {
       toast.success("Your email has been verified successfully");
+      navigate("/login");
     }
   };
 
   const handleChange = (index, char) => {
-    if (isNaN(char)) return; // Ensure only numbers are allowed
+    if (isNaN(char)) return; 
     const newValue = [...value];
     newValue[index] = char;
     setValue(newValue);
@@ -34,7 +38,7 @@ const VerificationEmail = () => {
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace") {
       const newValue = [...value];
-      newValue[index] = ""; // Clear the current value
+      newValue[index] = ""; 
 
       setValue(newValue);
 
@@ -46,7 +50,7 @@ const VerificationEmail = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg p-4">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-center mb-4">Verify Email</h2>
         <p className="text-gray-600 text-center mb-6">
