@@ -4,6 +4,8 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth-route");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("./utils/passport-config");
 
 const app = express();
 app.use(cors({
@@ -12,6 +14,16 @@ app.use(cors({
 }));
 app.use(express.json()); //middleware to parse json body
 app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //DB connection
 connectToDatabase();

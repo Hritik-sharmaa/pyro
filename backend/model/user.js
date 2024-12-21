@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
-        required: true
+        required: false,
+        default: ""
     },
     email: {
         type: String,
@@ -16,7 +17,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     isVerified: {
         type: Boolean,
@@ -26,6 +27,7 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpiresAt: Date,
     verificationToken: String,
     verificationTokenExpiresAt: Date,
+    googleId: { type: String, unique: true },
 })
 
 const User = mongoose.model("User", userSchema);

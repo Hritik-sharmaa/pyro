@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, Link } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
 import { useAuthStore } from "../store/authStore";
 import "../styles/Common.css";
+
+const GOOGLE_AUTH_URL = "http://localhost:3000/api/auth/google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,11 +69,12 @@ const Login = () => {
           />
           <button
             type="button"
-            className="absolute top-[55%] right-12 transform -translate-y-1/2 text-gray-500"
+            className="absolute top-[45.5%] right-12 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
           </button>
-          <p className="text-center mt-4 text-gray-500">
+
+          <p className="text-center text-sm mt-3 text-gray-500">
             <a href="/forgot-password" className="underline text-blue-400">
               Forgot Password?
             </a>
@@ -81,6 +85,21 @@ const Login = () => {
           value="Login"
           className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-zinc-900 transition duration-200 cursor-pointer"
         />
+
+        <div className="flex items-center my-3">
+          <hr className="flex-grow border-t border-gray-300" />
+          <span className="px-4 text-gray-500">OR</span>
+          <hr className="flex-grow border-t border-gray-300" />
+        </div>
+
+        <div className="text-center mt-4 w-full ">
+          <a
+            href={GOOGLE_AUTH_URL}
+            className="flex items-center justify-center bg-transparent text-black py-2 px-4 rounded-lg  transition duration-200 border border-black hover:bg-black hover:text-white ease-in">
+            <FcGoogle className="mr-4" />
+            Login with Google
+          </a>
+        </div>
         <p className="text-center mt-4 text-gray-500">
           Don't have an account?{" "}
           <Link to="/register" className="underline text-blue-400">

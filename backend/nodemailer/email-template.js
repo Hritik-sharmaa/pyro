@@ -9,14 +9,7 @@ exports.emailVerficationTemplate = `<html dir="ltr" lang="en">
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
   </head>
-  <div
-    style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
-  >
-    AWS Email Verification
-    <div>
-       ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
-    </div>
-  </div>
+ 
   <body style="background-color:#fff;color:#212121">
     <table
       align="center"
@@ -85,7 +78,7 @@ exports.emailVerficationTemplate = `<html dir="ltr" lang="en">
                             <p
                               style="font-size:14px;line-height:24px;margin:24px 0;color:#333;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;margin-bottom:14px"
                             >
-                              Thanks for starting the new AWS account creation
+                              Thanks for starting the new PYRO account creation
                               process. We want to make sure it&#x27;s really
                               you. Please enter the following verification code
                               when prompted. If you don&#x27;t want to create an
@@ -144,7 +137,7 @@ exports.emailVerficationTemplate = `<html dir="ltr" lang="en">
                             <p
                               style="font-size:14px;line-height:24px;margin:0px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif"
                             >
-                              Amazon Web Services will never email you and ask
+                              Pyro will never email you and ask
                               you to disclose or verify your password, credit
                               card, or banking account number.
                             </p>
@@ -156,26 +149,6 @@ exports.emailVerficationTemplate = `<html dir="ltr" lang="en">
                 </tr>
               </tbody>
             </table>
-            <p
-              style="font-size:12px;line-height:24px;margin:24px 0;color:#333;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;padding:0 20px"
-            >
-              This message was produced and distributed by Amazon Web Services,
-              Inc., 410 Terry Ave. North, Seattle, WA 98109. © 2022, Amazon Web
-              Services, Inc.. All rights reserved. AWS is a registered trademark
-              of<!-- -->
-              <a
-                href="https://amazon.com"
-                style="color:#2754C5;text-decoration-line:none;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;text-decoration:underline"
-                target="_blank"
-                >Amazon.com</a
-              >, Inc. View our<!-- -->
-              <a
-                href="https://amazon.com"
-                style="color:#2754C5;text-decoration-line:none;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;text-decoration:underline"
-                target="_blank"
-                >privacy policy</a
-              >.
-            </p>
           </td>
         </tr>
       </tbody>
@@ -218,19 +191,12 @@ exports.welcomeEmailTemplate = `<html dir="ltr" lang="en">
       <tbody>
         <tr style="width:100%">
           <td>
-            <img
-              alt="Koala"
-              height="50"
-              src="https://react-email-demo-hich02t6q-resend.vercel.app/static/koala-logo.png"
-              style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto"
-              width="170"
-            />
             <p style="font-size:16px;line-height:26px;margin:16px 0">
               Hi
               <!-- -->{firstName}<!-- -->,
             </p>
             <p style="font-size:16px;line-height:26px;margin:16px 0">
-              Welcome to Koala, the sales intelligence platform that helps you
+              Welcome to PYRO, the sales intelligence platform that helps you
               uncover qualified leads and close deals faster.
             </p>
             <table
@@ -242,47 +208,13 @@ exports.welcomeEmailTemplate = `<html dir="ltr" lang="en">
               role="presentation"
               style="text-align:center"
             >
-              <tbody>
-                <tr>
-                  <td>
-                    <a
-                      href="https://getkoala.com"
-                      style="line-height:100%;text-decoration:none;display:block;max-width:100%;mso-padding-alt:0px;background-color:#5F51E8;border-radius:3px;color:#fff;font-size:16px;text-align:center;padding:12px 12px 12px 12px"
-                      target="_blank"
-                      ><span
-                        ><!--[if mso
-                          ]><i
-                            style="mso-font-width:300%;mso-text-raise:18"
-                            hidden
-                            >&#8202;&#8202;</i
-                          ><!
-                        [endif]--></span
-                      ><span
-                        style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
-                        >Get started</span
-                      ><span
-                        ><!--[if mso
-                          ]><i style="mso-font-width:300%" hidden
-                            >&#8202;&#8202;&#8203;</i
-                          ><!
-                        [endif]--></span
-                      ></a
-                    >
-                  </td>
-                </tr>
-              </tbody>
             </table>
             <p style="font-size:16px;line-height:26px;margin:16px 0">
-              Best,<br />The Koala team
+              Best,<br />The Pyro team
             </p>
             <hr
               style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#cccccc;margin:20px 0"
             />
-            <p
-              style="font-size:12px;line-height:24px;margin:16px 0;color:#8898aa"
-            >
-              470 Noor Ave STE B #1148, South San Francisco, CA 94080
-            </p>
           </td>
         </tr>
       </tbody>
