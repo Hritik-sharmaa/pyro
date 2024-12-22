@@ -111,7 +111,7 @@ const Register = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 cursor-pointer"
+          className="w-full border border-blue-900 bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-200"
           disabled={isLoading}>
           {isLoading ? "Loading..." : "Create an account"}
         </button>

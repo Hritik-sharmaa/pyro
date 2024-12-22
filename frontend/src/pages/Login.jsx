@@ -43,7 +43,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg bg-gray-950 text-white bg font-mono">
+    <div className="flex justify-center items-center min-h-screen bg bg-gray-950 text-white bg font-mono tracking-tighter">
       <form
         onSubmit={loginUser}
         className="bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 w-full max-w-sm text-gray-900">
@@ -70,7 +70,7 @@ const Login = () => {
           />
           <button
             type="button"
-            className="absolute top-[50.5%] right-12 transform -translate-y-1/2 text-gray-500"
+            className="absolute top-[50.5%] right-12 transform -translate-y-1/2 text-gray-500 "
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
           </button>
@@ -83,9 +83,10 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-lg transition duration-200 cursor-pointer border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in" disabled={isLoading}>
+          className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-full transition duration-200 border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in"
+          disabled={isLoading}>
           {isLoading ? "Loading..." : "Login"}
-          </button>
+        </button>
 
         <div className="flex items-center my-3">
           <hr className="flex-grow border-t border-gray-300" />
@@ -96,7 +97,7 @@ const Login = () => {
         <div className="text-center mt-4 w-full ">
           <a
             href={GOOGLE_AUTH_URL}
-            className="flex items-center justify-center bg-transparent text-black py-2 px-4 rounded-lg  transition duration-200 border border-black hover:bg-black hover:text-white ease-in">
+            className="flex items-center justify-center bg-transparent text-black py-2 px-4 rounded-full transition duration-200 border border-black hover:bg-black hover:text-white ease-in">
             <FcGoogle className="mr-4" />
             Login with Google
           </a>
