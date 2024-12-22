@@ -43,10 +43,11 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg bg-gray-950 text-white bg">
+    <div className="flex justify-center items-center min-h-screen bg bg-gray-950 text-white bg font-mono">
       <form
         onSubmit={loginUser}
         className="bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 w-full max-w-sm text-gray-900">
+        <h2 className="logo text-center text-2xl mb-4 text-[#FF4438]">Pyro</h2>
         <h2 className="text-2xl font-bold mb-6 text-center">Welcome back!</h2>
         <div className="mb-4">
           <label className="block font-medium mb-2">Email</label>
@@ -54,7 +55,7 @@ const Login = () => {
             type="email"
             placeholder="Enter your email"
             value={data.email}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black text-gray-900 placeholder:text-sm"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-[#dcff1e] text-gray-900 placeholder:text-sm"
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
         </div>
@@ -64,12 +65,12 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             value={data.password}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-black text-gray-900 placeholder:text-sm"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-[#dcff1e] text-gray-900 placeholder:text-sm"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
           <button
             type="button"
-            className="absolute top-[45.5%] right-12 transform -translate-y-1/2 text-gray-500"
+            className="absolute top-[50.5%] right-12 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
           </button>
@@ -80,15 +81,15 @@ const Login = () => {
             </a>
           </p>
         </div>
-        <input
+        <button
           type="submit"
-          value="Login"
-          className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-zinc-900 transition duration-200 cursor-pointer"
-        />
+          className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-lg transition duration-200 cursor-pointer border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in" disabled={isLoading}>
+          {isLoading ? "Loading..." : "Login"}
+          </button>
 
         <div className="flex items-center my-3">
           <hr className="flex-grow border-t border-gray-300" />
-          <span className="px-4 text-gray-500">OR</span>
+          <span className="px-4 text-gray-500">Or</span>
           <hr className="flex-grow border-t border-gray-300" />
         </div>
 

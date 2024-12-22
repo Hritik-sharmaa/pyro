@@ -27,7 +27,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white bg">
+    <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white bg font-mono">
       <form
         onSubmit={handleSubmit}
         className="bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 w-full max-w-sm text-gray-900">

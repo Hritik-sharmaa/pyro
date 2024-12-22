@@ -42,7 +42,6 @@ const VerificationEmail = () => {
 
       setValue(newValue);
 
-      // Move focus to the previous input if it exists
       if (index > 0) {
         inputsRef.current[index - 1]?.focus();
       }
@@ -50,7 +49,7 @@ const VerificationEmail = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg p-4">
+    <div className="min-h-screen flex items-center justify-center bg p-4 font-mono">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-center mb-4">Verify Email</h2>
         <p className="text-gray-600 text-center mb-6">

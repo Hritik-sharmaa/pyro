@@ -53,10 +53,11 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950 bg">
+    <div className="flex items-center justify-center min-h-screen bg-gray-950 bg font-mono tracking-tighter">
       <form
         onSubmit={registerUser}
         className="w-full max-w-md bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 text-gray-900">
+        <h2 className="logo text-center text-2xl mb-4 text-[#FF4438]">Pyro</h2>
         <h2 className="text-2xl font-bold mb-6 text-center">
           Create an Account
         </h2>
@@ -65,9 +66,9 @@ const Register = () => {
             <label className="block font-medium mb-2">First name</label>
             <input
               type="text"
-              placeholder="Please enter first name"
+              placeholder="Enter first name"
               value={data.firstName}
-              className="w-full border bg-transparent border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-[12px]"
+              className="w-full border bg-transparent border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-[13px]"
               onChange={(e) => setData({ ...data, firstName: e.target.value })}
             />
           </div>
@@ -75,9 +76,9 @@ const Register = () => {
             <label className="block font-medium mb-2">Last name</label>
             <input
               type="text"
-              placeholder="Please enter last name"
+              placeholder="Enter last name"
               value={data.lastName}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500  text-gray-900 placeholder:text-[12px]"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500  text-gray-900 placeholder:text-[13px]"
               onChange={(e) => setData({ ...data, lastName: e.target.value })}
             />
           </div>
@@ -86,7 +87,7 @@ const Register = () => {
           <label className="block font-medium mb-2">Email</label>
           <input
             type="email"
-            placeholder="Please enter email"
+            placeholder="Enter email"
             value={data.email}
             className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-900 placeholder:text-[13px]"
             onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -96,14 +97,14 @@ const Register = () => {
           <label className="block font-medium mb-2">Password</label>
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Please enter password"
+            placeholder="Enter password"
             value={data.password}
             className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-sm text-gray-900 placeholder:text-[13px]"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
           <button
             type="button"
-            className="absolute top-[67%] right-12 transform -translate-y-1/2 text-gray-500"
+            className="absolute top-[70.5%] right-12 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
           </button>
