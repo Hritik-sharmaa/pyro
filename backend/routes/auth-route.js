@@ -10,6 +10,7 @@ router.post("/logout", logout);
 router.post("/verify-email", verifyEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);
+
 // Google Login
 router.get(
     "/google",
@@ -21,11 +22,11 @@ router.get(
     "/google/callback",
     passport.authenticate("google", {
       failureRedirect: "/login",
-      session: false, // Disable session if using JWT
+      session: false, 
     }),
     (req, res) => {
-      const token = generateJWTToken(res, req.user._id); // Generate a JWT
-      res.redirect(`http://localhost:5173?token=${token}`); // Redirect to the frontend with token
+      const token = generateJWTToken(res, req.user._id); 
+      res.redirect(`http://localhost:5173?token=${token}`); 
     }
   );
 
