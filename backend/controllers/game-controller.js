@@ -1,13 +1,40 @@
 const axios = require("axios");
 require("dotenv").config();
 const Game = require("../model/game");
+const posters = require("../utils/poster");
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // Function to generate random price in INR
 const randomPriceInRupees = () =>
   Math.round(Math.random() * (5000 - 500) + 500);
 
-const fetchAndStoregame = async (req, res) => {
+const updatePosters = async () => {
+  try {
+    for (const poster of posters) {
+      const { id, poster: posterPath } = poster;
+
+      console.log(`Updating poster for Game ID: ${id} with ${posterPath}`); // Add logging
+
+      const existingGame = await Game.findOne({ gameId: id });
+
+      if (existingGame) {
+        console.log(`Found game: ${existingGame.name}`); // Add logging
+        existingGame.poster = posterPath;
+        await existingGame.save();
+        console.log(`Updated poster for game: ${existingGame.name}`);
+      } else {
+        console.warn(`Game with ID ${id} not found in the database.`);
+      }
+    }
+    console.log("Successfully updated posters.");
+  } catch (err) {
+    console.error("Error updating posters:", err.message);
+  }
+};
+
+
+
+const fetchAndStoregame = async () => {
   try {
     const rawgApiKey = process.env.RAWG_API_KEY;
     const baseUrl = process.env.BASE_URL;
@@ -15,6 +42,7 @@ const fetchAndStoregame = async (req, res) => {
     let gameStored = 0;
 
     while (gameStored < 200) {
+      if (gameStored >= 200) break;
       const { data } = await axios.get(baseUrl, {
         params: {
           key: rawgApiKey,
@@ -26,6 +54,7 @@ const fetchAndStoregame = async (req, res) => {
       const filteredGames = data.results.filter((game) => game.rating > 3);
 
       for (const game of filteredGames) {
+        if (gameStored >= 200) break;
         const gameDetails = await axios.get(`${baseUrl}/${game.id}`, {
           params: {
             key: rawgApiKey,
@@ -91,7 +120,10 @@ const fetchAndStoregame = async (req, res) => {
             }
             return ["No publisher available"];
           } catch (err) {
-            console.error(`Failed to fetch publisher for Game ID ${game.id}:`, err.message);
+            console.error(
+              `Failed to fetch publisher for Game ID ${game.id}:`,
+              err.message
+            );
             return ["Error fetching publisher"];
           }
         };
@@ -101,6 +133,8 @@ const fetchAndStoregame = async (req, res) => {
         const screenshots = await fetchScreenshots(game.id);
 
         const trailer = await fetchTrailer(game.id);
+
+        const poster = posters.find((p) => p.id === game.id)?.poster || "";
 
         const existingGame = await Game.findOne({ name: details.name });
 
@@ -123,7 +157,7 @@ const fetchAndStoregame = async (req, res) => {
             screenshots: screenshots.length > 0 ? screenshots : [],
 
             trailer,
-            poster: details.background_image,
+            poster,
           });
           gameStored++;
         }
@@ -134,7 +168,9 @@ const fetchAndStoregame = async (req, res) => {
       page++;
       await delay(500);
     }
-    // console.log(`Successfully stored ${gameStored} games.`);
+    console.log(`Successfully stored ${gameStored} games.`);
+
+    await updatePosters();
   } catch (err) {
     console.error("Error fetching games:", err.message);
   }

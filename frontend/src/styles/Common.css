@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 
 body{
   cursor: url('/cursor.png'), auto;
+  font-family: "Space Mono";
 
 }
 button, a {
@@ -18,3 +22,4 @@ button, a {
   font-weight: 400;
   font-style: normal;
 }
+

@@ -48,8 +48,12 @@ const GameSchema = new mongoose.Schema({
     },
     poster:{
         type:String,
-        required: true,
+        required: false,
     },
+    // background_image:{
+    //     type:String,
+    //     required: true,
+    // }
 
 });
 
