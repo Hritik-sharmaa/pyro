@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import axios from "axios";
 import "../styles/Slider.css";
+import { motion } from "motion/react";
 
 const GameSlider = () => {
   const [games, setGames] = useState([]);
@@ -47,34 +48,70 @@ const GameSlider = () => {
   }
 
   return (
-    <div className="w-full h-full ">
+    <div className="w-full h-full overflow-hidden bg-[#0f1115] z-10">
       <Slider {...settings}>
         {games.map((game) => (
-          <div key={game._id} className="relative w-full h-[570px]">
+          <div key={game._id} className="relative w-full h-[680px]">
             {/* {console.log(game.poster)}  */}
-            <div
+            <motion.div
               className="absolute inset-0 bg-cover bg-center "
               style={{
                 backgroundImage: `url(${game.poster})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center",
+                backgroundSize: "cover",
                 filter: "brightness(25%)",
-              }}></div>
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}></motion.div>
 
-            <div className="absolute inset-0 flex flex-col items-start justify-center pl-10 text-white z-10">
-              <h1 className="text-5xl font-extrabold mb-4">{game.name}</h1>
-              <p className="mb-6 max-w-[700px]">
+            <motion.div
+              className="absolute inset-0 flex flex-col items-start justify-center px-20 text-white z-10"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 50 }}
+              transition={{ duration: 1 }}>
+              <motion.h1
+                className="text-5xl font-extrabold mb-4"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}>
+                {game.name}
+              </motion.h1>
+              <motion.p
+                className="mb-6 max-w-[700px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}>
                 {game.description?.length > 150
                   ? `${game.description.substring(0, 200)}...`
                   : game.description}
-              </p>
-              <div className="flex gap-4">
-                <button className="bg-pink-500 text-black px-6 py-2 rounded-md font-semibold hover:bg-pink-600">
+              </motion.p>
+              <motion.div
+                className="flex gap-4"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  className="bg-pink-500 text-black px-6 py-2 rounded-md font-semibold hover:bg-pink-600 transition-all ease-out">
                   Buy Now
-                </button>
-                <button className="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-black">
-                  + Wishlist
-                </button>
-              </div>
-            </div>
+                </motion.button>
+                <motion.button
+                  className="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-black transition-all ease-in"
+                  whileHover={{ scale: 1.1 }}>
+                  <motion.span
+                    className="text-xl"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    style={{ display: "inline-block" }}>
+                    +
+                  </motion.span>{" "}
+                  Wishlist
+                </motion.button>
+              </motion.div>
+            </motion.div>
           </div>
         ))}
       </Slider>

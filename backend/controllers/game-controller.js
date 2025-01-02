@@ -8,6 +8,10 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const randomPriceInRupees = () =>
   Math.round(Math.random() * (5000 - 500) + 500);
 
+const calculateDiscountedPrice = (originalPrice, discount) => {
+  return Math.round(originalPrice * (1 - discount / 100));
+};
+
 const updatePosters = async () => {
   try {
     for (const poster of posters) {
@@ -31,8 +35,6 @@ const updatePosters = async () => {
     console.error("Error updating posters:", err.message);
   }
 };
-
-
 
 const fetchAndStoregame = async () => {
   try {
@@ -139,6 +141,20 @@ const fetchAndStoregame = async () => {
         const existingGame = await Game.findOne({ name: details.name });
 
         if (!existingGame) {
+          const originalPrice = randomPriceInRupees();
+          let discount = 0;
+
+          if (details.rating >= 4.5) {
+            discount = 15;
+          } else if (new Date(details.released) < new Date("2020-01-01")) {
+            discount = 30;
+          } else if (details.rating <= 3.5) {
+            discount = 50;
+          }
+
+          const isFree = Math.random() < 0.05;
+          const discountedPrice = isFree ? 0 : calculateDiscountedPrice(originalPrice, discount);
+
           await Game.create({
             name: details.name,
             gameId: game.id,
@@ -149,7 +165,9 @@ const fetchAndStoregame = async () => {
               return acc;
             }, {}),
             rating: details.rating,
-            price: randomPriceInRupees(),
+            originalPrice,
+            discountedPrice,
+            discount,
             publisher: publisher,
             released: details.released,
             genres: details.genres.map((genre) => genre.name),

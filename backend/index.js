@@ -10,6 +10,8 @@ const passport = require("./utils/passport-config");
 const carouselRoute = require("./routes/carousel-route");
 const { fetchAndStoregame } = require("./controllers/game-controller");
 const gameRoute = require("./routes/game-route");
+const topRatedGames = require("./routes/top-rated-games")
+const flashSale = require("./routes/flash-sale-games")
 
 const app = express();
 
@@ -45,6 +47,8 @@ connectToDatabase();
 app.use("/api/auth", authRoutes);
 app.use("/api/games", gameRoute);
 app.use("/api/carousel", carouselRoute);
+app.use("/api/top-rated", topRatedGames);
+app.use("/api/flash-sale", flashSale);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
