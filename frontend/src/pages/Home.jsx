@@ -8,6 +8,8 @@ import FlashSale from "../components/FlashSale";
 import Banner from "../components/Banner";
 import BrowseByGenre from "../components/BrowseByGenre";
 import Navbar from "../components/Navbar";
+import UnderPrice from "../components/UnderPrice";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -30,6 +32,10 @@ const Home = () => {
       <FlashSale />
 
       <Banner />
+
+      <UnderPrice/>
+
+      <Footer/>
     </div>
   );
 };

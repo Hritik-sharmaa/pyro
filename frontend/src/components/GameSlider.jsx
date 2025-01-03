@@ -51,7 +51,7 @@ const GameSlider = () => {
     <div className="w-full h-full overflow-hidden bg-[#0f1115] z-10">
       <Slider {...settings}>
         {games.map((game) => (
-          <div key={game._id} className="relative w-full h-[680px]">
+          <div key={game._id} className="relative w-full h-[750px]">
             {/* {console.log(game.poster)}  */}
             <motion.div
               className="absolute inset-0 bg-cover bg-center "
