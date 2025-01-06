@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/TopRated.css";
 import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
+import SeeAllButton from "./SeeAllButton";
 
 const TopRatedGames = () => {
   const [games, setGames] = useState([]);
@@ -45,8 +46,11 @@ const TopRatedGames = () => {
     },
   };
   return (
-    <div className="text-white bg-[#0f1115] w-full h-full px-20 py-10 font">
-      <h2 className="text-4xl font-bold mb-7">Top rated</h2>
+    <div className="text-white bg-[#0f1115] w-full h-full px-20 py-10 font ">
+      <h2 className="text-4xl font-bold mb-7 flex items-center">
+        Top rated {<SeeAllButton route="/top-rated"/>}
+      </h2>
+
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
         initial="hidden"

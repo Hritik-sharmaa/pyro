@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
+import {Link } from "react-router-dom"
 
 const Navbar = () => {
   const [searchVisible, setSearchVisible] = useState(false);
@@ -42,7 +43,7 @@ const Navbar = () => {
           scrollingDown ? "-translate-y-full" : "translate-y-0"
         }`}>
         <div className="flex items-center gap-10">
-          <h1 className="text-3xl font-bold text-[#FF4438] logo">Pyro</h1>
+          <Link to="/"><h1 className="text-3xl font-bold text-[#FF4438] logo">Pyro</h1></Link>
           <ul className="flex items-center gap-8 text-lg">
             <motion.li
               whileHover={{ scale: 1.1 }}
@@ -98,13 +99,13 @@ const Navbar = () => {
             <IoIosHeartEmpty size={24} />
           </motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-[#DCFF1E] text-black font-semibold px-4 py-2 rounded-md hover:bg-[#bad524]"
-            onClick={() => navigate("/login")}>
-            Login
-          </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#DCFF1E] text-black font-semibold px-4 py-2 rounded-md hover:bg-[#bad524]"
+              onClick={() => navigate("/login")}>
+              Login
+            </motion.button>
         </div>
       </nav>
     </div>

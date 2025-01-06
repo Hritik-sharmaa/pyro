@@ -153,7 +153,9 @@ const fetchAndStoregame = async () => {
           }
 
           const isFree = Math.random() < 0.05;
-          const discountedPrice = isFree ? 0 : calculateDiscountedPrice(originalPrice, discount);
+          const discountedPrice = isFree
+            ? 0
+            : calculateDiscountedPrice(originalPrice, discount);
 
           await Game.create({
             name: details.name,
@@ -194,4 +196,115 @@ const fetchAndStoregame = async () => {
   }
 };
 
-module.exports = { fetchAndStoregame };
+const fetchTopRatedGames = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
+  try {
+    const totalGames = await Game.countDocuments({ rating: { $gt: 4 } });
+    const games = await Game.find({ rating: { $gt: 4 } })
+      .sort({ rating: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({ games, totalGames });
+  } catch (err) {
+    console.error("error fetching top rated games: ", err);
+    res.status(500).json({ message: "error fetching top rated games" });
+  }
+};
+
+const fetchFlashSaleGames = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
+  try {
+    const totalGames = await Game.countDocuments({ discount: 30 });
+    const games = await Game.find({ discount: 30 }).skip(skip).limit(limit);
+
+    res.status(200).json({
+      games,
+      totalGames,
+      message: "Successfull fetched the flash game sale",
+    });
+  } catch (err) {
+    console.error("error fetching flash sale", err);
+    res.status(500).json({ message: "errorr fetching flash sale games" });
+  }
+};
+
+const fetchUnder500Games = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
+  try {
+    const totalgames = await Game.countDocuments({
+      discountPrice: { $lt: 500 },
+    });
+    const games = await Game.find({ discountedPrice: { $lt: 500 } })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      games,
+      totalgames,
+      message: "Successfull fetched the games under 500 sale",
+    });
+  } catch (err) {
+    console.error("error fetching under 500 games ", err);
+    res.status(500).json({ message: "errorr fetching under price 500 games" });
+  }
+};
+
+const fetchUnder1000Games = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
+  try {
+    const totalgames = await Game.countDocuments({
+      discountPrice: { $lt: 500 },
+    });
+    const games = await Game.find({ discountedPrice: { $lt: 1000 } })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      games,
+      totalgames,
+      message: "Successfull fetched the games under price 1000 sale",
+    });
+  } catch (err) {
+    console.error("error fetching games under 1000 sale", err);
+    res.status(500).json({ message: "errorr fetching game under 1000 games" });
+  }
+};
+
+const fetchGamesByGenre = async (req, res) => {
+  const genre = req.params.genre;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const skip = (page - 1) * limit;
+
+  try {
+    const totalGames = await Game.countDocuments({ genres: { $in: [genre] } });
+    const games = await Game.find({ genres: { $in: [genre] } })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    res.status(200).json({ games, totalGames, message: "Games fetched successfully." });
+  } catch (err) {
+    console.error("Error fetching games by genre", err);
+    res.status(500).json({ message: "Error fetching games by genre." });
+  }
+};
+
+
+module.exports = {
+  fetchAndStoregame,
+  fetchTopRatedGames,
+  fetchFlashSaleGames,
+  fetchUnder500Games,
+  fetchUnder1000Games,
+  fetchGamesByGenre,
+};

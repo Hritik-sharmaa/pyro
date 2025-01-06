@@ -4,7 +4,8 @@ import { AiFillWindows } from "react-icons/ai";
 import { FaApple } from "react-icons/fa";
 import "../styles/Common.css";
 import { FiPlusCircle } from "react-icons/fi";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import SeeAllButton from "./SeeAllButton";
 
 const UnderPrice = () => {
   const [under500, setUnder500] = useState([]);
@@ -63,8 +64,7 @@ const UnderPrice = () => {
       <motion.div
         key={game._id}
         className="relative bg-white text-black p-2 rounded-lg group transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
-        variants={itemVariants}
-      >
+        variants={itemVariants}>
         <img
           src={game.poster}
           alt={game.name}
@@ -86,38 +86,31 @@ const UnderPrice = () => {
       </motion.div>
     ));
 
-
   return (
     <div className="bg-[#0f1115] text-white py-10 px-20 font">
       <div className="flex items-center mb-7">
         <h2 className="text-2xl font-bold">Under 500</h2>
-        <button className="text-xs ml-4 border px-2 py-1 rounded-2xl">
-          See all
-        </button>
+        <SeeAllButton route="/under-price-500"/>
       </div>
       <motion.div
         className="grid grid-cols-4 gap-4"
         initial="hidden"
         whileInView="visible"
         variants={containerVariants}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+        viewport={{ once: true, amount: 0.2 }}>
         {renderGames(under500)}
       </motion.div>
 
       <div className="flex items-center my-7">
         <h2 className="text-2xl font-bold">Under 1000</h2>
-        <button className="text-xs ml-4 border px-2 py-1 rounded-2xl">
-          See all
-        </button>
+        <SeeAllButton route="/under-price-1000"/>
       </div>
       <motion.div
         className="grid grid-cols-4 gap-4"
         initial="hidden"
         whileInView="visible"
         variants={containerVariants}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+        viewport={{ once: true, amount: 0.2 }}>
         {renderGames(under1000)}
       </motion.div>
     </div>

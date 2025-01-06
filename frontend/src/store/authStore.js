@@ -63,11 +63,12 @@ export const useAuthStore = create((set) => ({
       const data = await response.json();
       if (response.ok) {
         // Save token in localStorage or cookies
+        console.log("login successfull", data.user)
         localStorage.setItem("token", data.token);
+        set({ isLoading: false, isAuthenticated: true, user: data.user });
       } else {
         throw new Error(data.message || "Login failed");
       }
-      set({ isLoading: false, isAuthenticated: true, user: data.user });
     } catch (err) {
       set({ isLoading: false, error: err.message });
       console.log(err);
@@ -122,7 +123,7 @@ export const useAuthStore = create((set) => ({
       throw error;
     }
   },
-  
+
   logout: async () => {
     set({ isLoading: true, error: null });
     try {

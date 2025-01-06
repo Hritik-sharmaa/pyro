@@ -7,6 +7,11 @@ import VerificationEmail from "./pages/VerificationEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Games from "./pages/Games";
+import TopRatedGamesPage from "./pages/TopRatedGamesPage";
+import FlashSaleGamePage from "./pages/FlashSaleGamePage";
+import Under500Games from "./pages/Under500Games";
+import Under1000Games from "./pages/Under1000Games";
+import GenreGamesPage from "./pages/GenreGamesPage";
 
 
 function App() {
@@ -21,7 +26,11 @@ function App() {
           <Route path="/verify-email" element={<VerificationEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path ="/games" element={<Games/>}/>
+          <Route path = "/top-rated" element={<TopRatedGamesPage/>} />
+          <Route path ="/flash-sale" element={<FlashSaleGamePage/>} />
+          <Route path ="/under-price-500" element={<Under500Games/>} />
+          <Route path ="/under-price-1000" element={<Under1000Games/>} />
+          <Route path="/genre/:genre" element={<GenreGamesPage/>}/>
         </Routes>
     </div>
   );

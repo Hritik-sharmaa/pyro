@@ -100,8 +100,8 @@ const Login = () => {
           </p>
         </div>
         <motion.button
-         whileHover={{ scale: 1.05 }}
-         whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           type="submit"
           className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-full transition duration-200 border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in"
           disabled={isLoading}>
@@ -116,8 +116,8 @@ const Login = () => {
 
         <div className="text-center mt-4 w-full ">
           <motion.a
-           whileHover={{ scale: 1.02 }}
-           whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.95 }}
             href={GOOGLE_AUTH_URL}
             className="flex items-center justify-center bg-transparent text-black py-2 px-4 rounded-full transition duration-200 border border-black hover:bg-black hover:text-white ease-in">
             <FcGoogle className="mr-4" />

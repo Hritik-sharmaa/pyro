@@ -3,6 +3,7 @@ import axios from "axios";
 import "../styles/Common.css";
 import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
+import SeeAllButton from "./SeeAllButton";
 
 const FlashSale = () => {
   const [games, setGames] = useState([]);
@@ -46,21 +47,22 @@ const FlashSale = () => {
     },
   };
   return (
-<div className="bg-[#0f1115] text-white py-10 px-20 w-full h-full font">
-      <h2 className="text-4xl font-bold mb-7">Flash Sale</h2>
+    <div className="bg-[#0f1115] text-white py-10 px-20 w-full h-full font">
+      <h2 className="text-4xl font-bold mb-7 flex items-center ">
+        Flash Sale {<SeeAllButton route="/flash-sale"/>}
+      </h2>
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="grid grid-cols-5 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
-      >
+        className="grid grid-cols-5 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {games.map((game) => (
           <motion.div
             key={game._id}
             variants={itemVariants}
-            className="relative overflow-hidden group"
-          >
+            className="relative overflow-hidden group">
             <div className="relative w-full h-[25rem]">
               <img
                 src={game.poster}
@@ -70,8 +72,7 @@ const FlashSale = () => {
             </div>
             <button
               className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-black text-white p-2 rounded-full transition-opacity duration-300"
-              title="Add to Wishlist"
-            >
+              title="Add to Wishlist">
               <FiPlusCircle size={24} />
             </button>
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-90 p-4">
