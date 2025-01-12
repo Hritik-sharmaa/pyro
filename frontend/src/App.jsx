@@ -12,6 +12,10 @@ import FlashSaleGamePage from "./pages/FlashSaleGamePage";
 import Under500Games from "./pages/Under500Games";
 import Under1000Games from "./pages/Under1000Games";
 import GenreGamesPage from "./pages/GenreGamesPage";
+import BrowseGames from "./pages/BrowseGames";
+import AboutUs from "./pages/AboutUs";
+import CartPage from "./pages/CartPage";
+import WishListPage from "./pages/WishListPage";
 
 
 function App() {
@@ -21,6 +25,10 @@ function App() {
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/browse-games" element={<BrowseGames/>}/>
+          <Route path="/about-us" element={<AboutUs/>}/>
+          <Route path="/cart" element={<CartPage/>}/>
+          <Route path="/wishlist" element={<WishListPage />}/>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify-email" element={<VerificationEmail />} />

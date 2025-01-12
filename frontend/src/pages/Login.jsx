@@ -8,6 +8,7 @@ import "../styles/Common.css";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { motion } from "motion/react";
+import Spinner from "../components/Spinner";
 
 const GOOGLE_AUTH_URL = "http://localhost:3000/api/auth/google";
 
@@ -24,7 +25,7 @@ const Login = () => {
     e.preventDefault();
 
     const { email, password } = data;
-    console.log({ email, password });
+    // console.log({ email, password });
 
     if (!email || !password) {
       toast.error("Please fill out all fields.");
@@ -42,11 +43,11 @@ const Login = () => {
       }
     } catch (err) {
       console.error("Login failed:", err);
-      toast.error("Something went wrong.");
+      toast.error(error);
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg bg-gray-950 text-white bg font-mono tracking-tighter">
+    <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white bg font-mono tracking-tighter">
       <form
         onSubmit={loginUser}
         className="bg-white border border-white/60 backdrop-blur-lg shadow-lg rounded-lg p-8 w-full max-w-sm text-gray-900">
@@ -105,7 +106,7 @@ const Login = () => {
           type="submit"
           className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-full transition duration-200 border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in"
           disabled={isLoading}>
-          {isLoading ? "Loading..." : "Login"}
+          {isLoading ? <Spinner/> : "Login"}
         </motion.button>
 
         <div className="flex items-center my-3">

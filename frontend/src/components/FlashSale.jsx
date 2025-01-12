@@ -4,6 +4,7 @@ import "../styles/Common.css";
 import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
+import WishlistButton from "./WishlistButton";
 
 const FlashSale = () => {
   const [games, setGames] = useState([]);
@@ -49,7 +50,7 @@ const FlashSale = () => {
   return (
     <div className="bg-[#0f1115] text-white py-10 px-20 w-full h-full font">
       <h2 className="text-4xl font-bold mb-7 flex items-center ">
-        Flash Sale {<SeeAllButton route="/flash-sale"/>}
+        Flash Sale {<SeeAllButton route="/flash-sale" />}
       </h2>
 
       <motion.div
@@ -70,11 +71,7 @@ const FlashSale = () => {
                 className="object-cover w-full h-full group-hover:brightness-[45%] transition-transform duration-300 group-hover:scale-110"
               />
             </div>
-            <button
-              className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-black text-white p-2 rounded-full transition-opacity duration-300"
-              title="Add to Wishlist">
-              <FiPlusCircle size={24} />
-            </button>
+            <WishlistButton game={game} />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-90 p-4">
               <h3 className="text-sm font-semibold truncate">{game.name}</h3>
               <div className="flex items-center gap-2 mt-2">

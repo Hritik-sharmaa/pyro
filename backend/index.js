@@ -20,8 +20,11 @@ const gameRoute = require("./routes/game-route");
 const topRatedGames = require("./routes/top-rated-games");
 const flashSale = require("./routes/flash-sale-games");
 const underGames = require("./routes/under-games");
+const wishlistRoute = require("./routes/wishlist-routes")
 
 const app = express();
+
+app.use(express.json()); //middleware to parse json body
 
 const assetsPath = path.join(__dirname, "../assets");
 app.use("/assets", express.static(assetsPath));
@@ -32,7 +35,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json()); //middleware to parse json body
+
 app.use(cookieParser());
 app.use(
   session({
@@ -64,7 +67,10 @@ app.use("/api/games/top-rated", fetchTopRatedGames);
 app.use("/api/games/flash-sale", fetchFlashSaleGames);
 app.use("/api/games/under-price-500", fetchUnder500Games);
 app.use("/api/games/under-price-1000", fetchUnder1000Games);
-app.use("/api/games/genre/:genre",fetchGamesByGenre)
+app.use("/api/games/genre/:genre",fetchGamesByGenre);
+
+//wishlist routes
+app.use("/api/wishlist", wishlistRoute)
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

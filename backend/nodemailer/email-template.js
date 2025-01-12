@@ -44,19 +44,7 @@ exports.emailVerficationTemplate = `<html dir="ltr" lang="en">
                       role="presentation"
                       style="background-color:#252f3d;display:flex;padding:20px 0;align-items:center;justify-content:center"
                     >
-                      <tbody>
-                        <tr>
-                          <td>
-                            <img
-                              alt="AWS&#x27;s Logo"
-                              height="45"
-                              src="https://react-email-demo-hich02t6q-resend.vercel.app/static/aws-logo.png"
-                              style="display:block;outline:none;border:none;text-decoration:none"
-                              width="75"
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
+                     
                     </table>
                     <table
                       align="center"

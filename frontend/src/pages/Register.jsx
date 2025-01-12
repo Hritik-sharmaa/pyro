@@ -20,11 +20,12 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { register, isLoading, error, user } = useAuthStore();
-  console.log(user);
+  // console.log("user is: ",user);
 
   const registerUser = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = data;
+    console.log("Data is: ", data)
 
     //validations
     if (!firstName || !lastName || !email || !password) {

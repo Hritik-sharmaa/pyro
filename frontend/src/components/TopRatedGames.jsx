@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/TopRated.css";
-import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
+import WishlistButton from "./WishlistButton";
 
 const TopRatedGames = () => {
   const [games, setGames] = useState([]);
@@ -48,7 +48,7 @@ const TopRatedGames = () => {
   return (
     <div className="text-white bg-[#0f1115] w-full h-full px-20 py-10 font ">
       <h2 className="text-4xl font-bold mb-7 flex items-center">
-        Top rated {<SeeAllButton route="/top-rated"/>}
+        Top rated {<SeeAllButton route="/top-rated" />}
       </h2>
 
       <motion.div
@@ -65,11 +65,7 @@ const TopRatedGames = () => {
             <div
               className="h-[180px] bg-cover bg-center cursor-pointer group-hover:brightness-[45%] relative"
               style={{ backgroundImage: `url(${game.poster})` }}>
-              <button
-                className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-black text-white p-2 rounded-full transition-opacity duration-300"
-                title="Add to Wishlist">
-                <FiPlusCircle size={24} />
-              </button>
+              <WishlistButton game={game} />
             </div>
 
             <div className="pl-4 p-1 relative h-[50px]">

@@ -17,7 +17,7 @@ const Banner = () => {
           />
         </div>
         <div className="relative flex flex-col items-center justify-center text-center px-4 py-[3.5rem]">
-          <h1 className="text-4xl font-bold mb-4">Best Of 2023</h1>
+          <h1 className="text-4xl font-bold mb-4">Best Old Games</h1>
           <p className="text-xl">
             A look back at the year's top sellers, best new releases,
             most-played games, and more!

@@ -1,6 +1,9 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
-const { emailVerficationTemplate, welcomeEmailTemplate } = require("./email-template");
+const {
+  emailVerficationTemplate,
+  welcomeEmailTemplate,
+} = require("./email-template");
 
 const transporter = nodemailer.createTransport({
   service: "gmail", // Or use your email provider's SMTP service
@@ -46,20 +49,18 @@ exports.sendWelcomeEmail = async (email, firstName) => {
 };
 
 exports.sendPasswordResetEmail = async (email, resetUrl) => {
-    try {
-      const mailOptions = {
-        from: `"Pyro Team" <${process.env.SMTP_EMAIL}>`, // Sender's email address
-        to: email, // Recipient's email address
-        subject: "Reset your password",
-        html: `<p>Click <a href="${resetUrl}">here</a> to reset your password.</p>`
-      };
-  
-      await transporter.sendMail(mailOptions);
-      console.log("Verification email sent successfully");
-  } catch (error) {
-    
-  }
-}
+  try {
+    const mailOptions = {
+      from: `"Pyro Team" <${process.env.SMTP_EMAIL}>`, // Sender's email address
+      to: email, // Recipient's email address
+      subject: "Reset your password",
+      html: `<p>Click <a href="${resetUrl}">here</a> to reset your password.</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log("Verification email sent successfully");
+  } catch (error) {}
+};
 
 exports.sendResetSuccessEmail = async (email) => {
   try {
@@ -67,9 +68,9 @@ exports.sendResetSuccessEmail = async (email) => {
       from: `"Pyro Team" <${process.env.SMTP_EMAIL}>`, // Sender's email address
       to: email, // Recipient's email address
       subject: "Password reset was successfull",
-      html: `<p>your password has been reset successfully</p>`
-  } 
-}catch (error) {
-  console.error("Error sending reset success email", error);
-}
-}
+      html: `<p>your password has been reset successfully</p>`,
+    };
+  } catch (error) {
+    console.error("Error sending reset success email", error);
+  }
+};

@@ -199,11 +199,28 @@ const fetchAndStoregame = async () => {
 const fetchTopRatedGames = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
   const skip = (page - 1) * limit;
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
+  };
+
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
+
+  // console.log("Sort Field:", sortField); /
+  // console.log("Sort Order:", sortOrder);
+  // console.log("Sort By:", sortBy);
+
   try {
     const totalGames = await Game.countDocuments({ rating: { $gt: 4 } });
     const games = await Game.find({ rating: { $gt: 4 } })
-      .sort({ rating: -1 })
+      .sort(sortBy)
       .skip(skip)
       .limit(limit);
 
@@ -217,31 +234,58 @@ const fetchTopRatedGames = async (req, res) => {
 const fetchFlashSaleGames = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
   const skip = (page - 1) * limit;
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
+  };
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
+
   try {
     const totalGames = await Game.countDocuments({ discount: 30 });
-    const games = await Game.find({ discount: 30 }).skip(skip).limit(limit);
+    const games = await Game.find({ discount: 30 })
+      .sort(sortBy)
+      .skip(skip)
+      .limit(limit);
 
     res.status(200).json({
       games,
       totalGames,
-      message: "Successfull fetched the flash game sale",
+      message: "Successfully fetched the flash sale games",
     });
   } catch (err) {
-    console.error("error fetching flash sale", err);
-    res.status(500).json({ message: "errorr fetching flash sale games" });
+    console.error("Error fetching flash sale games:", err);
+    res.status(500).json({ message: "Error fetching flash sale games" });
   }
 };
 
 const fetchUnder500Games = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
   const skip = (page - 1) * limit;
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
+  };
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
   try {
     const totalgames = await Game.countDocuments({
       discountPrice: { $lt: 500 },
     });
     const games = await Game.find({ discountedPrice: { $lt: 500 } })
+      .sort(sortBy)
       .skip(skip)
       .limit(limit);
 
@@ -259,12 +303,26 @@ const fetchUnder500Games = async (req, res) => {
 const fetchUnder1000Games = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
   const skip = (page - 1) * limit;
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
+  };
+
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
+
   try {
     const totalgames = await Game.countDocuments({
       discountPrice: { $lt: 500 },
     });
     const games = await Game.find({ discountedPrice: { $lt: 1000 } })
+      .sort(sortBy)
       .skip(skip)
       .limit(limit);
 
@@ -283,16 +341,32 @@ const fetchGamesByGenre = async (req, res) => {
   const genre = req.params.genre;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating"; 
+  const sortOrder = req.query.order === "asc" ? 1 : -1; 
   const skip = (page - 1) * limit;
+
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 }, 
+    "highest-price": { discountedPrice: -1 }, 
+  };
+
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
 
   try {
     const totalGames = await Game.countDocuments({ genres: { $in: [genre] } });
     const games = await Game.find({ genres: { $in: [genre] } })
+      .sort(sortBy) 
       .skip(skip)
       .limit(limit)
       .exec();
 
-    res.status(200).json({ games, totalGames, message: "Games fetched successfully." });
+    res
+      .status(200)
+      .json({ games, totalGames, message: "Games fetched successfully." });
   } catch (err) {
     console.error("Error fetching games by genre", err);
     res.status(500).json({ message: "Error fetching games by genre." });

@@ -11,7 +11,9 @@ const { sendResetSuccessEmail } = require("../nodemailer/email");
 const crypto = require("crypto");
 
 const register = async (req, res) => {
+  console.log("received req")
   const { firstName, lastName, email, password } = req.body;
+  console.log("register data: ", req.body)
   try {
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).json({
@@ -33,9 +35,9 @@ const register = async (req, res) => {
     // check if password is good not not
     if (password.length < 8) {
       return res.status(400).json({
-          success: false,
+        success: false,
         message: "Password must be at least 8 characters long",
-         error: "Password too short"
+        error: "Password too short",
       });
     }
     //check if email exists or not
@@ -46,7 +48,7 @@ const register = async (req, res) => {
         error: "Email already exists",
       });
     }
-//hash the password
+    //hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const verificationToken = generateVerificationToken();
@@ -57,11 +59,13 @@ const register = async (req, res) => {
       password: hashedPassword,
       verificationToken: verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, //24 hours,
+      googleId: null,
     });
+    console.log("User created: ", user); 
 
     await user.save();
 
-    generateJWTToken(res, user._id);
+    generateJWTToken(res, user._id, user.firstName, user.email);
 
     await sendVerificationEmail(user.email, verificationToken);
 
@@ -75,7 +79,7 @@ const register = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error(error);
+    console.error("registrtion error: ",error);
     res.status(400).json({ success: false, message: "Internal server error" });
   }
 };
@@ -98,9 +102,11 @@ const login = async (req, res) => {
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials",error: "Invalid credentials" });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+        error: "Invalid credentials",
+      });
     }
     const isVerified = user.isVerified;
     if (!isVerified) {
@@ -109,9 +115,19 @@ const login = async (req, res) => {
         .json({ success: false, message: "Email not verified" });
     }
 
-    generateJWTToken(res, user._id);
+    const token = generateJWTToken(res, user._id, user.firstName, user.email);
+    //console.log("Generated token: ",token);
 
-    res.status(200).json({ success: true, message: "Login successful" });
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token,
+      user: {
+        userId: user._id,
+        firstName: user.firstName,
+        email: user.email,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, message: "Internal server error" });

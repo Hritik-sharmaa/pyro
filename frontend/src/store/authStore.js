@@ -1,12 +1,18 @@
 import { create } from "zustand";
+import decode from "jwt-decode";
+
 const API_URL = "http://localhost:3000/api/auth";
 
 export const useAuthStore = create((set) => ({
   user: null,
+  userId: null,
   isLoading: false,
   error: null,
   isAuthenticated: false,
   isCheckingAuth: true,
+  wishlistCount: 0,
+
+  setWishlistCount: (count) => set({ wishlistCount: count }),
 
   register: async (firstName, lastName, email, password) => {
     set({ isLoading: true, error: null });
@@ -20,7 +26,7 @@ export const useAuthStore = create((set) => ({
         body: JSON.stringify({ firstName, lastName, email, password }),
       });
       const data = await response.json();
-      //console.log(data);
+      console.log(data);
       set({ isLoading: false, isAuthenticated: true, user: data.user });
     } catch (error) {
       set({ isLoading: false, error: error.message });
@@ -49,6 +55,36 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  checkAuth: async () => {
+    set({ isLoading: true });
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const decoded = decode(token);
+        //console.log("decode message: ", decoded)
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (decoded.exp < currentTime) {
+          set({ isAuthenticated: false, isCheckingAuth: false });
+          localStorage.removeItem("token");
+        } else {
+          set({
+            user: decoded,
+            userId: decoded.userId,
+            isAuthenticated: true,
+            isCheckingAuth: false,
+          });
+          // setUserId(decoded.userId);
+        }
+      } catch (err) {
+        set({ isAuthenticated: false, isCheckingAuth: false });
+      }
+    } else {
+      set({ isAuthenticated: false, isCheckingAuth: false });
+    }
+    set({ isLoading: false }); 
+  },
+
   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
@@ -60,12 +96,26 @@ export const useAuthStore = create((set) => ({
         credentials: "include",
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
+      //console.log("API Response:", data);
+
       if (response.ok) {
+        if (!data.token) {
+          throw new Error("Token not received.");
+        }
         // Save token in localStorage or cookies
-        console.log("login successfull", data.user)
         localStorage.setItem("token", data.token);
-        set({ isLoading: false, isAuthenticated: true, user: data.user });
+        //console.log("Token received:", data.token);
+        const decoded = decode(data.token);
+        //console.log("Decoded token:", decoded);
+        set({
+          isLoading: false,
+          isAuthenticated: true,
+          user: decoded,
+          userId: decoded.userId,
+        });
+        // setUserId(decoded.userId);
       } else {
         throw new Error(data.message || "Login failed");
       }
@@ -148,6 +198,7 @@ export const useAuthStore = create((set) => ({
         user: null,
         error: null,
       });
+      // setUserId(null);
     } catch (error) {
       set({ isLoading: false, error: error.message });
       console.log(error);

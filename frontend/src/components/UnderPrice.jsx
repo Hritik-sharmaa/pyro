@@ -6,6 +6,7 @@ import "../styles/Common.css";
 import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
+import WishlistButton from "./WishlistButton";
 
 const UnderPrice = () => {
   const [under500, setUnder500] = useState([]);
@@ -80,9 +81,7 @@ const UnderPrice = () => {
         <p className="text-[#66CC41] text-sm mt-1 font-bold">
           ₹{game.discountedPrice.toLocaleString("en-IN")}
         </p>
-        <button className="absolute top-3 right-3 bg-black text-white px-1 py-1 text-xs rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <FiPlusCircle size={24} />
-        </button>
+        <WishlistButton game={game} />
       </motion.div>
     ));
 
