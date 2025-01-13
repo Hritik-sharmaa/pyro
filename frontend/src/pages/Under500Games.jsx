@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import "../styles/Common.css";
 import { MdSort } from "react-icons/md";
 import Footer from "../components/Footer";
+import WishlistButton from "../components/WishlistButton";
 
 const Under500Games = () => {
   const [games, setGames] = useState([]);
@@ -63,7 +64,7 @@ const Under500Games = () => {
       <div className="pt-32">
         <div className="flex justify-between items-center">
           <h2 className="text-4xl font-bold text-center mb-6">
-            under 500 Games
+            Under ₹500 Games
           </h2>
           <div className="flex items-center">
             <MdSort size={30} className="mx-2" />
@@ -87,7 +88,7 @@ const Under500Games = () => {
           {games.map((game) => (
             <div
               key={game._id}
-              className="flex bg-white text-black p-2 rounded">
+              className="flex bg-white text-black p-2 rounded group relative">
               <img
                 src={game.poster}
                 alt={game.name}
@@ -105,6 +106,7 @@ const Under500Games = () => {
                   })}
                 </p>
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
+                <WishlistButton game={game}/>
               </div>
             </div>
           ))}

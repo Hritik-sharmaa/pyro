@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import "../styles/Common.css";
 import { MdSort } from "react-icons/md";
 import Footer from "../components/Footer";
+import WishlistButton from "../components/WishlistButton";
 
 const TopRatedGamesPage = () => {
   const [games, setGames] = useState([]);
@@ -88,7 +89,7 @@ const TopRatedGamesPage = () => {
           {games.map((game) => (
             <div
               key={game._id}
-              className="flex bg-white text-black p-2 rounded ">
+              className="flex bg-white text-black p-2 rounded group relative">
               <img
                 src={game.poster}
                 alt={game.name}
@@ -106,6 +107,9 @@ const TopRatedGamesPage = () => {
                   })}
                 </p>
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
+              </div>
+              <div className="flex items-center justify-center">
+                <WishlistButton game={game}/>
               </div>
             </div>
           ))}
@@ -125,7 +129,7 @@ const TopRatedGamesPage = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import axios from "axios";
 import "../styles/Slider.css";
+import { useWishlistStore } from "../store/wishlistStore";
+import { useAuthStore } from "../store/authStore";
+import { toast } from "react-hot-toast";
 import { motion } from "motion/react";
 
 const GameSlider = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const userId = useAuthStore((state) => state.userId);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
 
   useEffect(() => {
     axios
@@ -46,6 +52,30 @@ const GameSlider = () => {
       <div className="text-white text-center py-20">No games available</div>
     );
   }
+  const handleAddToWishlist = (game) => {
+    if (userId) {
+      addToWishlist(game);
+      const payload = { userId, gameId: game._id };
+      //console.log("Adding game to wishlist:", payload);
+      axios
+        .post(`http://localhost:3000/api/wishlist/add/${userId}`, {
+          gameId: game._id,
+        })
+
+        .then((res) => {
+          toast.success("Game added to wishlist!");
+          //console.log("Game added to wishlist: ", res.data);
+        })
+        .catch((err) => {
+          console.error(
+            "Error adding to wishlist: ",
+            err.response?.data || err.message
+          );
+        });
+    } else {
+      toast.error("Please log in to add to your wishlist");
+    }
+  };
 
   return (
     <div className="w-full h-full overflow-hidden bg-[#0f1115] z-10">
@@ -100,7 +130,8 @@ const GameSlider = () => {
                 </motion.button>
                 <motion.button
                   className="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-black transition-all ease-in"
-                  whileHover={{ scale: 1.1 }}>
+                  whileHover={{ scale: 1.1 }}
+                  onClick={() => handleAddToWishlist(game)}>
                   <motion.span
                     className="text-xl"
                     whileHover={{ rotate: 360 }}

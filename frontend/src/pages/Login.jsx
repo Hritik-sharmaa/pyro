@@ -8,7 +8,6 @@ import "../styles/Common.css";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { motion } from "motion/react";
-import Spinner from "../components/Spinner";
 
 const GOOGLE_AUTH_URL = "http://localhost:3000/api/auth/google";
 

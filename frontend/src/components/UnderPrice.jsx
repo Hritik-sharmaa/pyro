@@ -88,7 +88,7 @@ const UnderPrice = () => {
   return (
     <div className="bg-[#0f1115] text-white py-10 px-20 font">
       <div className="flex items-center mb-7">
-        <h2 className="text-2xl font-bold">Under 500</h2>
+        <h2 className="text-2xl font-bold">Under ₹500</h2>
         <SeeAllButton route="/under-price-500"/>
       </div>
       <motion.div
@@ -101,7 +101,7 @@ const UnderPrice = () => {
       </motion.div>
 
       <div className="flex items-center my-7">
-        <h2 className="text-2xl font-bold">Under 1000</h2>
+        <h2 className="text-2xl font-bold">Under ₹1000</h2>
         <SeeAllButton route="/under-price-1000"/>
       </div>
       <motion.div

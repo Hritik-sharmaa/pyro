@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import "../styles/Common.css";
 import { MdSort } from "react-icons/md";
 import Footer from "../components/Footer";
+import WishlistButton from "../components/WishlistButton";
 
 const GenreGamesPage = () => {
   const { genre } = useParams();
@@ -86,7 +87,9 @@ const GenreGamesPage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6">
           {games.map((game) => (
-            <div key={game._id} className="flex bg-white text-black p-2 rounded">
+            <div
+              key={game._id}
+              className="flex bg-white text-black p-2 rounded relative group">
               <img
                 src={game.poster}
                 alt={game.name}
@@ -104,6 +107,7 @@ const GenreGamesPage = () => {
                   })}
                 </p>
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
+                <WishlistButton game={game} />
               </div>
             </div>
           ))}
@@ -123,7 +127,7 @@ const GenreGamesPage = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

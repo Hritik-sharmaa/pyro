@@ -83,11 +83,11 @@ const FlashSaleGamePage = () => {
 
         {loading && <div className="text-center">Loading...</div>}
 
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6 group">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-6">
           {games.map((game) => (
             <div
               key={game._id}
-              className="flex bg-white text-black p-2 rounded">
+              className="flex bg-white text-black p-2 rounded group relative">
               <img
                 src={game.poster}
                 alt={game.name}
@@ -107,7 +107,7 @@ const FlashSaleGamePage = () => {
                   })}
                 </p>
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
-               
+               <WishlistButton game={game}/>
               </div>
             </div>
           ))}

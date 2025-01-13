@@ -19,9 +19,9 @@ const WishlistButton = ({ game }) => {
           gameId: game._id,
         })
 
-        .then((response) => {
+        .then((res) => {
           toast.success("Game added to wishlist!");
-          //console.log("Game added to wishlist: ", response.data);
+          //console.log("Game added to wishlist: ", res.data);
         })
         .catch((err) => {
           console.error(
@@ -35,7 +35,7 @@ const WishlistButton = ({ game }) => {
   };
   return (
     <button
-      className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-black text-white p-2 rounded-full transition-opacity duration-300"
+      className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-black text-white p-2 rounded-full transition-opacity duration-300 z-50"
       title="Add to Wishlist"
       onClick={() => handleAddToWishlist(game)}>
       <FiPlusCircle size={24} />

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/TopRated.css";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
 import WishlistButton from "./WishlistButton";

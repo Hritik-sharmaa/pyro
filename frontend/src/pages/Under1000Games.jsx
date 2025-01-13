@@ -4,66 +4,67 @@ import Navbar from "../components/Navbar";
 import "../styles/Common.css";
 import { MdSort } from "react-icons/md";
 import Footer from "../components/Footer";
+import WishlistButton from "../components/WishlistButton";
 
 const Under1000Games = () => {
-    const [games, setGames] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalGames, setTotalGames] = useState(0);
-     const [sortOption, setSortOption] = useState("relevance");
-  
-    const gamesPerPage = 20;
-  
-    // Fetch games based on the current page
-    const getUnderPrice1000Games = async (page, sortField, order) => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `http://localhost:3000/api/games/under-price-1000`,
-          {
-            params: {
-              page: page,
-              limit: gamesPerPage,
-              sort: sortField,
-              order,
-            },
-          }
-        );
-        setGames(response.data.games);
-        setTotalGames(response.data.totalGames);
-      } catch (err) {
-        console.error("Error fetching the under-price-500 games", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
+  const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalGames, setTotalGames] = useState(0);
+  const [sortOption, setSortOption] = useState("relevance");
+
+  const gamesPerPage = 20;
+
+  // Fetch games based on the current page
+  const getUnderPrice1000Games = async (page, sortField, order) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:3000/api/games/under-price-1000`,
+        {
+          params: {
+            page: page,
+            limit: gamesPerPage,
+            sort: sortField,
+            order,
+          },
+        }
+      );
+      setGames(response.data.games);
+      setTotalGames(response.data.totalGames);
+    } catch (err) {
+      console.error("Error fetching the under-price-500 games", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getUnderPrice1000Games(currentPage, sortOption);
   }, [currentPage, sortOption]);
-  
-    const totalPages = Math.ceil(totalGames / gamesPerPage);
-  
-    const handlePageClick = (page) => {
-      setCurrentPage(page);
-    };
 
-    const handleSortChange = (e) => {
-      setSortOption(e.target.value);
-      setCurrentPage(1);
-    };
-  
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(i);
-    }
+  const totalPages = Math.ceil(totalGames / gamesPerPage);
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
   return (
     <div className="text-white bg-[#0f1115] w-full h-full px-20 font">
       <Navbar />
       <div className="pt-32">
         <div className="flex justify-between items-center">
           <h2 className="text-4xl font-bold text-center mb-6">
-            under 1000 Games
+            Under ₹1000 Games
           </h2>
           <div className="flex items-center">
             <MdSort size={30} className="mx-2" />
@@ -87,7 +88,7 @@ const Under1000Games = () => {
           {games.map((game) => (
             <div
               key={game._id}
-              className="flex bg-white text-black p-2 rounded">
+              className="flex bg-white text-black p-2 rounded relative group">
               <img
                 src={game.poster}
                 alt={game.name}
@@ -105,6 +106,7 @@ const Under1000Games = () => {
                   })}
                 </p>
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
+                <WishlistButton game={game} />
               </div>
             </div>
           ))}
@@ -124,9 +126,9 @@ const Under1000Games = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Under1000Games
+export default Under1000Games;
