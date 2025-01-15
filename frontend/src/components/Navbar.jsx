@@ -1,12 +1,11 @@
 import React from "react";
 import "../styles/Common.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
@@ -18,6 +17,7 @@ const Navbar = () => {
   const [active, setActive] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
@@ -25,6 +25,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+    }
     checkAuth();
   }, []);
 
@@ -65,23 +71,29 @@ const Navbar = () => {
           <Link to="/">
             <h1 className="text-3xl font-bold text-[#FF4438] logo">Pyro</h1>
           </Link>
-          <ul className="flex items-center gap-8 text-lg">
+          <ul className="flex items-center gap-8 text-lg font-thin">
             <motion.li
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="cursor-pointer">
+              className={`cursor-pointer ${
+                location.pathname === "/" ? "font-extrabold" : ""
+              }`}>
               <Link to="/">Home</Link>
             </motion.li>
             <motion.li
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1 cursor-pointer">
+              className={`cursor-pointer ${
+                location.pathname === "/browse-games" ? "font-extrabold" : ""
+              }`}>
               <Link to="/browse-games">Browse</Link>
             </motion.li>
             <motion.li
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="cursor-pointer">
+              className={`cursor-pointer ${
+                location.pathname === "/about-us" ? "font-extrabold" : ""
+              }`}>
               <Link to="/about-us">About Us</Link>
             </motion.li>
           </ul>
@@ -102,7 +114,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="What are you looking for?"
-              className="w-[17rem] bg-transparent border border-zinc-700 outline-none p-2 pl-5 rounded-2xl"
+              className="w-[20rem] bg-transparent border border-zinc-700 outline-none p-2 pl-5 rounded-2xl"
             />
           </div>
 
@@ -141,12 +153,13 @@ const Navbar = () => {
               </motion.div>
               {showDropdown && (
                 <motion.div
-                  className="absolute top-12 left-0 w-full bg-black border-none rounded-md px-4 py-2 shadow-lg"
+                  className="absolute top-12 left-0 w-full bg-black border-none rounded-md px-4 py-3 shadow-lg"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}>
+                    <span className="cursor-pointer hover:text-[#DCFF1E] transition-all ease-in text-lg">Profile</span>
                   <button
-                    className="w-full text-center text-black bg-[#DCFF1E] font-bold p-2 rounded"
+                    className="w-full text-center text-black bg-[#DCFF1E] font-bold p-2 rounded mt-3 hover:bg-[#9ab022]"
                     onClick={handleLogout}>
                     Logout
                   </button>

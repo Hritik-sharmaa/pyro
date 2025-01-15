@@ -1,21 +1,25 @@
-import React, { useState, useRef  } from "react";
+import React, { useState, useRef } from "react";
 import InputOTP from "../components/InputOTP";
 import InputOTPGroup from "../components/InputOTPGroup";
 import InputOTPSlot from "../components/InputOTPSlot";
 import { Button } from "../components/Button";
-import { useAuthStore } from "../store/authStore"; 
-import { toast } from "react-hot-toast"; 
-import "../styles/Common.css"
+import { useAuthStore } from "../store/authStore";
+import { toast } from "react-hot-toast";
+import "../styles/Common.css";
 import { useNavigate } from "react-router-dom";
 
 const VerificationEmail = () => {
-    const [value, setValue] = useState(Array(6).fill(""));
-    const inputsRef = useRef([]);
+  const [value, setValue] = useState(Array(6).fill(""));
+  const inputsRef = useRef([]);
   const { verifyEmail, isLoading, error, user } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const otpCode = value.join("");
+    if (otpCode.length < 6 || value.includes("")) {
+      toast.error("Please enter the full 6-digit verification code.");
+      return;
+    }
     await verifyEmail(otpCode);
     if (!error && !isLoading) {
       toast.success("Your email has been verified successfully");
@@ -24,7 +28,7 @@ const VerificationEmail = () => {
   };
 
   const handleChange = (index, char) => {
-    if (isNaN(char)) return; 
+    if (isNaN(char)) return;
     const newValue = [...value];
     newValue[index] = char;
     setValue(newValue);
@@ -38,7 +42,7 @@ const VerificationEmail = () => {
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace") {
       const newValue = [...value];
-      newValue[index] = ""; 
+      newValue[index] = "";
 
       setValue(newValue);
 
@@ -57,7 +61,7 @@ const VerificationEmail = () => {
         </p>
         <InputOTP>
           <InputOTPGroup className="mx-auto">
-          {value.map((digit, index) => (
+            {value.map((digit, index) => (
               <InputOTPSlot
                 key={index}
                 ref={(el) => (inputsRef.current[index] = el)}
@@ -77,7 +81,11 @@ const VerificationEmail = () => {
         </div>
         <div className="mt-6 text-center">
           <Button onClick={handleSubmit} className="w-full">
-            {isLoading ? "Verifying..." : "Verify Email Now"}
+            {isLoading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto"></div>
+            ) : (
+              "Verify email now"
+            )}
           </Button>
         </div>
       </div>

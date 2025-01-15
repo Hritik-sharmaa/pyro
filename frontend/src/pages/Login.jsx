@@ -105,7 +105,11 @@ const Login = () => {
           type="submit"
           className="w-full bg-[#dcff1e] text-[#091a23] py-2 px-4 rounded-full transition duration-200 border border-[#091a23] hover:bg-[#091a23] hover:text-[#dcff1e] ease-in"
           disabled={isLoading}>
-          {isLoading ? <Spinner/> : "Login"}
+          {isLoading ? (
+            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto"></div>
+          ) : (
+            "Login"
+          )}
         </motion.button>
 
         <div className="flex items-center my-3">

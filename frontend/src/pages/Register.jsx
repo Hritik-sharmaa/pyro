@@ -7,7 +7,7 @@ import "../styles/Common.css";
 import { MdOutlinePerson } from "react-icons/md";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
-import {motion} from "motion/react"
+import { motion } from "motion/react";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = data;
-    console.log("Data is: ", data)
+    console.log("Data is: ", data);
 
     //validations
     if (!firstName || !lastName || !email || !password) {
@@ -54,7 +54,7 @@ const Register = () => {
       toast.error(data.error);
     } else {
       setData({ firstName: "", lastName: "", email: "", password: "" });
-      toast.success("Registration successfull, Please Login!");
+      toast.success("Registration successfull, Please Verify!");
     }
   };
   return (
@@ -94,13 +94,13 @@ const Register = () => {
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
                 size={20}
               />
-            <input
-              type="text"
-              placeholder="Enter last name"
-              value={data.lastName}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500  text-gray-900 placeholder:text-[13px] pl-10"
-              onChange={(e) => setData({ ...data, lastName: e.target.value })}
-            />
+              <input
+                type="text"
+                placeholder="Enter last name"
+                value={data.lastName}
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500  text-gray-900 placeholder:text-[13px] pl-10"
+                onChange={(e) => setData({ ...data, lastName: e.target.value })}
+              />
             </div>
           </div>
         </div>
@@ -111,13 +111,13 @@ const Register = () => {
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
               size={20}
             />
-          <input
-            type="email"
-            placeholder="Enter email"
-            value={data.email}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-900 placeholder:text-[13px] pl-10"
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={data.email}
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-gray-900 placeholder:text-[13px] pl-10"
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
           </div>
         </div>
         <div className="mb-6">
@@ -127,28 +127,32 @@ const Register = () => {
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"
               size={20}
             />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter password"
-            value={data.password}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-sm text-gray-900 placeholder:text-[13px] pl-10"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
-          <button
-            type="button"
-            className="absolute top-[50%] right-[1rem] transform -translate-y-1/2 text-gray-500"
-            onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
-          </button>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              value={data.password}
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-sm text-gray-900 placeholder:text-[13px] pl-10"
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+            />
+            <button
+              type="button"
+              className="absolute top-[50%] right-[1rem] transform -translate-y-1/2 text-gray-500"
+              onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+            </button>
           </div>
         </div>
         <motion.button
-         whileHover={{ scale: 1.02 }}
-         whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.95 }}
           type="submit"
           className="w-full border border-blue-900 bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-200"
           disabled={isLoading}>
-          {isLoading ? "Loading..." : "Create an account"}
+          {isLoading ? (
+            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white mx-auto"></div>
+          ) : (
+            "Create an account"
+          )}
         </motion.button>
         <p className="text-center mt-5 text-gray-500">
           Already have account then{" "}
