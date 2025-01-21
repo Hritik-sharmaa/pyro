@@ -17,12 +17,12 @@ const updatePosters = async () => {
     for (const poster of posters) {
       const { id, poster: posterPath } = poster;
 
-      console.log(`Updating poster for Game ID: ${id} with ${posterPath}`); // Add logging
+      console.log(`Updating poster for Game ID: ${id} with ${posterPath}`);
 
       const existingGame = await Game.findOne({ gameId: id });
 
       if (existingGame) {
-        console.log(`Found game: ${existingGame.name}`); // Add logging
+        console.log(`Found game: ${existingGame.name}`);
         existingGame.poster = posterPath;
         await existingGame.save();
         console.log(`Updated poster for game: ${existingGame.name}`);
@@ -341,17 +341,16 @@ const fetchGamesByGenre = async (req, res) => {
   const genre = req.params.genre;
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 20;
-  const sortField = req.query.sort || "rating"; 
-  const sortOrder = req.query.order === "asc" ? 1 : -1; 
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
   const skip = (page - 1) * limit;
-
 
   const sortOptions = {
     rating: { rating: sortOrder },
     name: { name: sortOrder },
     released: { released: sortOrder },
-    "lowest-price": { discountedPrice: 1 }, 
-    "highest-price": { discountedPrice: -1 }, 
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
   };
 
   const sortBy = sortOptions[sortField] || sortOptions.rating;
@@ -359,7 +358,7 @@ const fetchGamesByGenre = async (req, res) => {
   try {
     const totalGames = await Game.countDocuments({ genres: { $in: [genre] } });
     const games = await Game.find({ genres: { $in: [genre] } })
-      .sort(sortBy) 
+      .sort(sortBy)
       .skip(skip)
       .limit(limit)
       .exec();
@@ -373,6 +372,54 @@ const fetchGamesByGenre = async (req, res) => {
   }
 };
 
+const fetchBrowseGames = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 20;
+  const sortField = req.query.sort || "rating";
+  const sortOrder = req.query.order === "asc" ? 1 : -1;
+  const skip = (page - 1) * limit;
+
+  const sortOptions = {
+    rating: { rating: sortOrder },
+    name: { name: sortOrder },
+    released: { released: sortOrder },
+    "lowest-price": { discountedPrice: 1 },
+    "highest-price": { discountedPrice: -1 },
+  };
+
+  const sortBy = sortOptions[sortField] || sortOptions.rating;
+
+  try {
+    const totalGames = await Game.countDocuments();
+    const games = await Game.find().sort(sortBy).skip(skip).limit(limit).exec();
+
+    res
+      .status(200)
+      .json({ games, totalGames, message: "Games fetched successfully." });
+  } catch (err) {
+    console.error("Error fetching browse games", err);
+    res.status(500).json({ message: "Error fetching browse games." });
+  }
+};
+
+const fetchSearchGames = async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) return res.json({ games: [] });
+
+    const games = await Game.find(
+      { name: { $regex: query, $options: "i" } },
+      "name poster"
+    ).limit(5);
+
+    //console.log("Search Results:", games);
+    res.json({ games }); 
+  } catch (error) {
+    console.error("Search Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 
 module.exports = {
   fetchAndStoregame,
@@ -381,4 +428,6 @@ module.exports = {
   fetchUnder500Games,
   fetchUnder1000Games,
   fetchGamesByGenre,
+  fetchBrowseGames,
+  fetchSearchGames,
 };

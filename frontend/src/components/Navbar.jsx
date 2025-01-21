@@ -1,13 +1,14 @@
 import React from "react";
 import "../styles/Common.css";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "motion/react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { IoCartOutline } from "react-icons/io5";
 import { useAuthStore } from "../store/authStore";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, isAuthenticated, checkAuth, logout, wishlistCount } =
@@ -16,13 +17,46 @@ const Navbar = () => {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [active, setActive] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
   const toggleSearch = () => {
     setSearchVisible(!searchVisible);
     setActive(!active);
+    setSearchQuery("");
+    setSuggestions([]);
   };
+
+  const fetchSuggestions = useCallback(async (query) => {
+    if (!query.trim()) {
+      setSuggestions([]);
+      //console.log("Clearing suggestions");
+      return;
+    }
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/games/search`,
+        { params: { q: query } }
+      );
+     // console.log("Full API Response:", response.data);
+      setSuggestions(response.data.games || []);
+    } catch (error) {
+      console.error("Error fetching search suggestions:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery) {
+      const delayDebounce = setTimeout(() => {
+        fetchSuggestions(searchQuery);
+      }, 300); 
+      return () => clearTimeout(delayDebounce);
+    } else {
+      setSuggestions([]);
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -107,15 +141,35 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}>
             <CiSearch size={28} />
           </motion.button>
+
           <div
-            className={`${
+            className={`absolute top-5 right-[28rem] w-[20rem] transition-all duration-300 ease-in-out ${
               searchVisible ? "block" : "hidden"
-            } absolute right-[27rem] rounded-full p-1 transition-all duration-300 ease-in-out`}>
+            }`}>
             <input
               type="text"
               placeholder="What are you looking for?"
-              className="w-[20rem] bg-transparent border border-zinc-700 outline-none p-2 pl-5 rounded-2xl"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent border border-zinc-700 outline-none p-2 pl-5 rounded-2xl text-white"
             />
+            {suggestions && suggestions.length > 0 && (
+              <ul className="absolute w-full bg-black border border-zinc-700 z-50 mt-1 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {suggestions.map((game) => (
+                  <li
+                    key={game._id}
+                    className="p-2 hover:bg-zinc-800 cursor-pointer flex items-center gap-3"
+                    onClick={() => navigate(`/game/${game._id}`)}>
+                    <img
+                      src={game.poster}
+                      alt={game.name}
+                      className="w-10 h-10 object-cover rounded"
+                    />
+                    <span>{game.name}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <motion.button
@@ -157,7 +211,9 @@ const Navbar = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}>
-                    <span className="cursor-pointer hover:text-[#DCFF1E] transition-all ease-in text-lg">Profile</span>
+                  <span className="cursor-pointer hover:text-[#DCFF1E] transition-all ease-in text-lg">
+                    Profile
+                  </span>
                   <button
                     className="w-full text-center text-black bg-[#DCFF1E] font-bold p-2 rounded mt-3 hover:bg-[#9ab022]"
                     onClick={handleLogout}>
