@@ -23,6 +23,8 @@ const topRatedGames = require("./routes/top-rated-games");
 const flashSale = require("./routes/flash-sale-games");
 const underGames = require("./routes/under-games");
 const wishlistRoute = require("./routes/wishlist-routes");
+const { getUserProfile } = require("./controllers/user-controller");
+const userRoute = require("./routes/user-routes");
 
 const app = express();
 
@@ -77,6 +79,9 @@ app.use("/api/wishlist", wishlistRoute);
 
 //search routes 
 app.use("/api/games/search", fetchSearchGames);
+
+//user routes 
+app.use("/api/user", userRoute)
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

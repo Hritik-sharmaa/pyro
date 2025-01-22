@@ -40,7 +40,7 @@ const Navbar = () => {
         `http://localhost:3000/api/games/search`,
         { params: { q: query } }
       );
-     // console.log("Full API Response:", response.data);
+      // console.log("Full API Response:", response.data);
       setSuggestions(response.data.games || []);
     } catch (error) {
       console.error("Error fetching search suggestions:", error);
@@ -51,7 +51,7 @@ const Navbar = () => {
     if (searchQuery) {
       const delayDebounce = setTimeout(() => {
         fetchSuggestions(searchQuery);
-      }, 300); 
+      }, 300);
       return () => clearTimeout(delayDebounce);
     } else {
       setSuggestions([]);
@@ -212,7 +212,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}>
                   <span className="cursor-pointer hover:text-[#DCFF1E] transition-all ease-in text-lg">
-                    Profile
+                    <Link to="/profile">Profile</Link>
                   </span>
                   <button
                     className="w-full text-center text-black bg-[#DCFF1E] font-bold p-2 rounded mt-3 hover:bg-[#9ab022]"

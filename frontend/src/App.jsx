@@ -16,30 +16,30 @@ import BrowseGames from "./pages/BrowseGames";
 import AboutUs from "./pages/AboutUs";
 import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
-
+import Profile from "./pages/Profile";
 
 function App() {
-
   return (
     <div>
-        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/browse-games" element={<BrowseGames/>}/>
-          <Route path="/about-us" element={<AboutUs/>}/>
-          <Route path="/cart" element={<CartPage/>}/>
-          <Route path="/wishlist" element={<WishListPage />}/>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify-email" element={<VerificationEmail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path = "/top-rated" element={<TopRatedGamesPage/>} />
-          <Route path ="/flash-sale" element={<FlashSaleGamePage/>} />
-          <Route path ="/under-price-500" element={<Under500Games/>} />
-          <Route path ="/under-price-1000" element={<Under1000Games/>} />
-          <Route path="/genre/:genre" element={<GenreGamesPage/>}/>
-        </Routes>
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/browse-games" element={<BrowseGames />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishListPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify-email" element={<VerificationEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/top-rated" element={<TopRatedGamesPage />} />
+        <Route path="/flash-sale" element={<FlashSaleGamePage />} />
+        <Route path="/under-price-500" element={<Under500Games />} />
+        <Route path="/under-price-1000" element={<Under1000Games />} />
+        <Route path="/genre/:genre" element={<GenreGamesPage />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
   );
 }
