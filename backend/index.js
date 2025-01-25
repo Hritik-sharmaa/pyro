@@ -17,6 +17,7 @@ const {
   fetchGamesByGenre,
   fetchBrowseGames,
   fetchSearchGames,
+  fetchGameDetails,
 } = require("./controllers/game-controller");
 const gameRoute = require("./routes/game-route");
 const topRatedGames = require("./routes/top-rated-games");
@@ -73,6 +74,7 @@ app.use("/api/games/under-price-500", fetchUnder500Games);
 app.use("/api/games/under-price-1000", fetchUnder1000Games);
 app.use("/api/games/genre/:genre", fetchGamesByGenre);
 app.use("/api/games/browse-games", fetchBrowseGames);
+app.use("/api/games/:gameId", fetchGameDetails);
 
 //wishlist routes
 app.use("/api/wishlist", wishlistRoute);

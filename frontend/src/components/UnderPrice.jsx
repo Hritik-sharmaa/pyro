@@ -3,10 +3,10 @@ import axios from "axios";
 import { AiFillWindows } from "react-icons/ai";
 import { FaApple } from "react-icons/fa";
 import "../styles/Common.css";
-import { FiPlusCircle } from "react-icons/fi";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
 import WishlistButton from "./WishlistButton";
+import { Link } from "react-router-dom";
 
 const UnderPrice = () => {
   const [under500, setUnder500] = useState([]);
@@ -66,11 +66,13 @@ const UnderPrice = () => {
         key={game._id}
         className="relative bg-white text-black p-2 rounded-lg group transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
         variants={itemVariants}>
-        <img
-          src={game.poster}
-          alt={game.name}
-          className="w-full h-[150px] object-cover rounded-t-lg group-hover:brightness-[45%] relative"
-        />
+        <Link to={`/games/${game._id}`}>
+          <img
+            src={game.poster}
+            alt={game.name}
+            className="w-full h-[150px] object-cover rounded-t-lg group-hover:brightness-[45%] relative"
+          />
+        </Link>
         <div className="mt-2 flex justify-between items-center">
           <p className="text-sm font-semibold">{game.name}</p>
           <div className="flex gap-1">
@@ -89,7 +91,7 @@ const UnderPrice = () => {
     <div className="bg-[#0f1115] text-white py-10 px-20 font">
       <div className="flex items-center mb-7">
         <h2 className="text-2xl font-bold">Under ₹500</h2>
-        <SeeAllButton route="/under-price-500"/>
+        <SeeAllButton route="/under-price-500" />
       </div>
       <motion.div
         className="grid grid-cols-4 gap-4"
@@ -102,7 +104,7 @@ const UnderPrice = () => {
 
       <div className="flex items-center my-7">
         <h2 className="text-2xl font-bold">Under ₹1000</h2>
-        <SeeAllButton route="/under-price-1000"/>
+        <SeeAllButton route="/under-price-1000" />
       </div>
       <motion.div
         className="grid grid-cols-4 gap-4"

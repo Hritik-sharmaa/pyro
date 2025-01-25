@@ -5,6 +5,7 @@ import "../styles/Common.css";
 import { MdSort } from "react-icons/md";
 import Footer from "../components/Footer";
 import WishlistButton from "../components/WishlistButton";
+import { Link } from "react-router-dom";
 
 const TopRatedGamesPage = () => {
   const [games, setGames] = useState([]);
@@ -90,11 +91,13 @@ const TopRatedGamesPage = () => {
             <div
               key={game._id}
               className="flex bg-white text-black p-2 rounded group relative">
-              <img
-                src={game.poster}
-                alt={game.name}
-                className="w-[21rem] rounded"
-              />
+              <Link to={`/games/${game._id}`}>
+                <img
+                  src={game.poster}
+                  alt={game.name}
+                  className="w-[21rem] rounded"
+                />
+              </Link>
               <div className="m-5">
                 <h6 className="text-2xl font-bold">{game.name}</h6>
                 <p className="text-xl">Rating: {game.rating}/5</p>
@@ -109,7 +112,7 @@ const TopRatedGamesPage = () => {
                 <h4>₹{game.discountedPrice.toLocaleString("en-IN")}</h4>
               </div>
               <div className="flex items-center justify-center">
-                <WishlistButton game={game}/>
+                <WishlistButton game={game} />
               </div>
             </div>
           ))}

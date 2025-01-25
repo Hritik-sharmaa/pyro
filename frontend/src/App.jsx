@@ -17,6 +17,7 @@ import AboutUs from "./pages/AboutUs";
 import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
 import Profile from "./pages/Profile";
+import GamesDetails from "./pages/GamesDetails";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/under-price-1000" element={<Under1000Games />} />
         <Route path="/genre/:genre" element={<GenreGamesPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/games/:gameId" element={<GamesDetails />} />
       </Routes>
     </div>
   );

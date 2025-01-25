@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { MdOutlinePerson2, MdAlternateEmail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
+import profilePic from "/profile-pic.png";
 
 const Profile = () => {
   const { user, isAuthenticated, logout } = useAuthStore((state) => state);
@@ -57,25 +58,31 @@ const Profile = () => {
     navigate("/login");
   };
 
-  if (loading) return <div className="text-white text-center mt-10">Loading...</div>;
-  if (error) return <div className="text-red-500 text-center mt-10">{error}</div>;
+  if (loading)
+    return <div className="text-white text-center mt-10">Loading...</div>;
+  if (error)
+    return <div className="text-red-500 text-center mt-10">{error}</div>;
 
   return (
     <div className="flex flex-col items-center text-white bg-[#0f1115] h-screen">
       <Navbar />
-      <h1 className="text-3xl font-bold text-white pt-28">Profile</h1>
+      <div className="flex items-center justify-center gap-4 pt-28">
+        <img src={profilePic} alt="" className="w-20"/>
+        <h1 className="text-3xl font-bold text-white ">Profile</h1>
+      </div>
       {isAuthenticated && userData ? (
         <div className="mt-10">
           <h2 className="text-2xl flex items-center gap-2">
             <MdOutlinePerson2 />
-            Name: {userData.firstName} {userData.lastName}
+            <span className="font-bold">Name: </span>{userData.firstName} {userData.lastName}
           </h2>
           <p className="text-lg flex items-center gap-2">
             <MdAlternateEmail />
-            Email: {userData.email}
+            <span className="font-bold">Email: </span>{userData.email}
           </p>
           <p className="text-lg flex items-center gap-2">
-            <TbLockPassword /> <Link to="/forgot-password">Forgot password?</Link>
+            <TbLockPassword />{" "}
+            <span className="font-bold"><Link to="/forgot-password">Forgot password?</Link></span>
           </p>
           <button
             className="w-full text-center text-black bg-[#DCFF1E] font-bold p-2 rounded mt-3 hover:bg-[#9ab022]"

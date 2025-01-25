@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
 import WishlistButton from "./WishlistButton";
+import { Link } from "react-router-dom";
 
 const TopRatedGames = () => {
   const [games, setGames] = useState([]);
@@ -61,11 +62,13 @@ const TopRatedGames = () => {
             key={game._id}
             className="bg-white text-black rounded-md overflow-hidden shadow-lg h-[230px] group"
             variants={itemVariants}>
-            <div
-              className="h-[180px] bg-cover bg-center cursor-pointer group-hover:brightness-[45%] relative"
-              style={{ backgroundImage: `url(${game.poster})` }}>
-              <WishlistButton game={game} />
-            </div>
+            <Link to={`/games/${game._id}`}>
+              <div
+                className="h-[180px] bg-cover bg-center cursor-pointer group-hover:brightness-[45%] relative"
+                style={{ backgroundImage: `url(${game.poster})` }}>
+                <WishlistButton game={game} />
+              </div>
+            </Link>
 
             <div className="pl-4 p-1 relative h-[50px]">
               <h3 className="text-sm font-bold">{game.name}</h3>

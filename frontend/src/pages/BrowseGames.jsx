@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import { TbSortAscendingLetters } from "react-icons/tb";
 import { AiOutlineSortDescending } from "react-icons/ai";
 import WishlistButton from "../components/WishlistButton";
+import { Link } from "react-router-dom";
 
 const BrowseGames = () => {
   const [games, setGames] = useState([]);
@@ -120,11 +121,11 @@ const BrowseGames = () => {
                   <p className="text-black mt-2">
                     Discounted Price: ₹{game.discountedPrice.toLocaleString("en-IN")}
                   </p>
-                  <a
-                    href={`/game/${game._id}`}
+                  <Link
+                    to={`/games/${game._id}`}
                     className="block mt-4 text-[#378a19] hover:underline">
                     View Details
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -136,7 +137,7 @@ const BrowseGames = () => {
             <button
               key={number}
               onClick={() => handlePageClick(number)}
-              className={`px-4 py-2 font-bold rounded-md ${
+              className={`px-4 py-2 font-bold rounded-md text-black ${
                 currentPage === number ? "bg-[#387a20]" : "bg-[#66CC41]"
               }`}>
               {number}

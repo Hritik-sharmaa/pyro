@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Common.css";
-import { FiPlusCircle } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SeeAllButton from "./SeeAllButton";
 import WishlistButton from "./WishlistButton";
@@ -64,13 +64,15 @@ const FlashSale = () => {
             key={game._id}
             variants={itemVariants}
             className="relative overflow-hidden group">
-            <div className="relative w-full h-[25rem]">
-              <img
-                src={game.poster}
-                alt={game.name}
-                className="object-cover w-full h-full group-hover:brightness-[45%] transition-transform duration-300 group-hover:scale-110"
-              />
-            </div>
+            <Link to={`/games/${game._id}`}>
+              <div className="relative w-full h-[25rem]">
+                <img
+                  src={game.poster}
+                  alt={game.name}
+                  className="object-cover w-full h-full group-hover:brightness-[45%] transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+            </Link>
             <WishlistButton game={game} />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-90 p-4">
               <h3 className="text-sm font-semibold truncate">{game.name}</h3>

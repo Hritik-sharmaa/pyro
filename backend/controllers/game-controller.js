@@ -413,13 +413,27 @@ const fetchSearchGames = async (req, res) => {
     ).limit(5);
 
     //console.log("Search Results:", games);
-    res.json({ games }); 
+    res.json({ games });
   } catch (error) {
     console.error("Search Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
+//games details
+const fetchGameDetails = async (req, res) => {
+  try {
+    const game = await Game.findOne({ _id: req.params.gameId });
+    if (!game) {
+      return res.status(404).json({ message: "Game not found" });
+    }
+
+    res.json(game);
+  } catch (err) {
+    console.error("Error fetching the details", err);
+    res.status(500).json({ message: "Error fetch the details" });
+  }
+};
 
 module.exports = {
   fetchAndStoregame,
@@ -430,4 +444,5 @@ module.exports = {
   fetchGamesByGenre,
   fetchBrowseGames,
   fetchSearchGames,
+  fetchGameDetails,
 };
